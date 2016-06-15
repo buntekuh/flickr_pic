@@ -1,0 +1,23 @@
+PATH
+  remote: .
+  specs:
+    flickrPic (0.1)
+      flickraw
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    flickraw (0.9.8)
+    minitest (5.8.4)
+    rake (11.1.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  flickrPic!
+  minitest
+  rake
+
+BUNDLED WITH
+   1.12.5
