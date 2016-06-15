@@ -14,8 +14,11 @@ keywords = ARGV
 
 require './lib/flickr_pic.rb'
 
-#require 'pry'
-#binding.pry
-
-puts FlickrPic::FlickrPic.execute filename, keywords
+begin
+  FlickrPic::FlickrPic.execute filename, keywords
+rescue => e
+  puts '####### An Exception occured #######'
+  puts e.message
+  exit 1
+end
 

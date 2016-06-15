@@ -3,6 +3,7 @@ require 'config'
 
 module FlickrPic
   class FlickrApi
+    class FlickrApiException < StandardError; end
 
     # 
     # Returns a list of urls which link to the best found images on flickr to the given keywords
@@ -10,6 +11,7 @@ module FlickrPic
     # @param keywords [Array of Strings] Keywords to query Flickr for
     # 
     # @return [Array of URLs] An Array of Urls to Flickr images
+    # @raise [FlickrApiException] If connecting to Flickr fails
     def self.query _keywords = []
       keywords = _keywords.clone
       urls = []
@@ -27,6 +29,7 @@ module FlickrPic
     # @param keyword [String] The keyword to query Flickr for
     # 
     # @return [String] A URI to an image or nil if none was found
+    # @raise [FlickrApiException] If connecting to Flickr fails
     def self.query_keyword keyword
       return nil if keyword.empty?
       img = nil
@@ -34,7 +37,7 @@ module FlickrPic
       begin
         img = flickr.photos.search(text: keyword, sort: 'interestingness-desc', media: :photos, per_page: 1).first
       rescue => e
-        raise "An Error occured while connecting to the Flickr API: #{e.message}"
+        fail FlickrApiException, e.message
       end
       FlickRaw.url_q img unless img.nil?
     
@@ -42,7 +45,8 @@ module FlickrPic
 
     # 
     # Picks a random word from a preset list of words
-    # Instead of using /usr/share/dict/words I have compiled a list of 100 words
+    # because chances are slim that a word in /usr/share/dict/words would return an image from flickr
+    # I have instead compiled a list of 100 viable words
     # 
     # @return [String] A word
     def self.pick_random_word
