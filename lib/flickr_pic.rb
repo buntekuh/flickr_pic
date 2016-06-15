@@ -3,7 +3,7 @@ require 'downloader'
 
 module FlickrPic
   class FlickrPic
-    attr_accessor :filename, :keywords, :urls, :images_dir
+    attr_accessor :filename, :keywords, :urls, :images_dir, :images
 
     def initialize filename, keywords
       self.filename = filename
@@ -48,7 +48,7 @@ module FlickrPic
     end
 
     def crop_results
-      # TODO
+      self.images = ::FlickrPic::ImageCropper.crop_images_in_dir images_dir, 300, 300
     end
 
     def assemble_collage

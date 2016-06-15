@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.files = Dir['lib/**/*'] + Dir['config/*.rb'] + %w{flickr_pic.rb LICENCE README.md rakefile Gemfile Gemfile.lock}
   s.require_paths = ['lib', 'lib/flickr_pic', 'config']
   s.add_runtime_dependency 'flickraw'
+  s.add_runtime_dependency 'mini_magick'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'minitest'
 end
