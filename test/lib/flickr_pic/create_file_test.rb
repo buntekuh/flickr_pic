@@ -16,13 +16,13 @@ module FlickrPic
       @images = images = Dir[File.join('test', 'fixtures', 'cropped_images', '*')].collect{|img| MiniMagick::Image.new(img) }
     end
 
-    def test_create
-      @image = CreateFile.create 'image.png', @images
+    def test_execute
+      @image = CreateFile.execute 'image.png', @images
       assert File.exist?('image.png')
       FileUtils.rm 'image.png'
       assert @image.is_a? MiniMagick::Image
 
-      image = CreateFile.create 'image.jpg', @images
+      image = CreateFile.execute 'image.jpg', @images
       assert File.exist?('image.jpg.png')
       FileUtils.rm 'image.jpg.png'
     end

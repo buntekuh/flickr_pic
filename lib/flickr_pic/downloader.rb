@@ -13,7 +13,7 @@ module FlickrPic
     # 
     # @return [String] The directory the files were saved to
     # @raise [DownloadException] If a file could not be downloaded or written
-    def self.get urls
+    def self.execute urls
       # the image directory is retained as per specs
       # in a clean environment the directory should be destroyed
       # tmp dirs are automatically destroyed by the os

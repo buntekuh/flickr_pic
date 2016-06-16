@@ -3,30 +3,30 @@ require 'flickr_pic'
 require 'config'
 
 module FlickrPic
-  class FlickrApiTest < Minitest::Test
+  class QueryFlickrTest < Minitest::Test
     UrlRegExp = /https?:\/\/[-_a-zA-Z0-9.\/]+/
 
-    def test_query
-      query = ::FlickrPic::FlickrApi.query(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
+    def test_execute
+      query = ::FlickrPic::QueryFlickr.execute(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
       assert_equal AppConfig[:min_number_of_images], query.size
       for url in query
         assert_match(UrlRegExp, url)
       end
-      assert_equal 11, ::FlickrPic::FlickrApi.query(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'January', 'February', 'March', 'April']).size
+      assert_equal 11, ::FlickrPic::QueryFlickr.execute(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'January', 'February', 'March', 'April']).size
 
-      assert_equal AppConfig[:min_number_of_images], ::FlickrPic::FlickrApi.query(['sf7w9eqjkd', 'asd708asd', 'asdf8', 'vbn7346h', 'xcvo8', 'fdsgvbc3', 'piewu434']).size
+      assert_equal AppConfig[:min_number_of_images], ::FlickrPic::QueryFlickr.execute(['sf7w9eqjkd', 'asd708asd', 'asdf8', 'vbn7346h', 'xcvo8', 'fdsgvbc3', 'piewu434']).size
 
     end
 
     def test_query_keyword
       # Passing a keyword should return an url to an image
-      url = ::FlickrPic::FlickrApi.query_keyword('kitty')
+      url = ::FlickrPic::QueryFlickr.query_keyword('kitty')
       assert_match(UrlRegExp, url)
-      assert FlickrApiTest.remote_file_is_an_image?(url)
+      assert QueryFlickrTest.remote_file_is_an_image?(url)
     end
 
     def test_pick_random_word
-      assert_match /[a-z]+/, ::FlickrPic::FlickrApi.pick_random_word
+      assert_match /[a-z]+/, ::FlickrPic::QueryFlickr.pick_random_word
     end
 
     def self.remote_file_is_an_image?(url)

@@ -1,4 +1,4 @@
-require 'flickr_api'
+require 'query_flickr'
 require 'downloader'
 require 'image_cropper'
 require 'create_file'
@@ -31,13 +31,13 @@ module FlickrPic
     # 
     # @return [MiniMagick::Image] The final image
     #
-    # @raise [FlickrApi::FlickrApiException] If connecting to Flickr fails
+    # @raise [QueryFlickr::QueryFlickrException] If connecting to Flickr fails
     # @raise [Downloader::DownloadException] If a file could not be downloaded or written
     def self.execute filename, keywords
       pic = FlickrPic.new filename, keywords
-      pic.query_flickr_api
-      pic.download_results
-      pic.crop_results
+      pic.query_flickr
+      pic.download
+      pic.crop_images
       pic.create_file
     end
 
@@ -45,9 +45,9 @@ module FlickrPic
     # Queries Flickr for the images
     # The urls are stored in the urls attribute
     # 
-    # @raise [FlickrApi::FlickrApiException] If connecting to Flickr fails
-    def query_flickr_api
-      self.urls = ::FlickrPic::FlickrApi.query(keywords) 
+    # @raise [QueryFlickr::QueryFlickrException] If connecting to Flickr fails
+    def query_flickr
+      self.urls = ::FlickrPic::QueryFlickr.execute(keywords) 
     end
 
     # 
@@ -55,15 +55,15 @@ module FlickrPic
     # The directory is stored in the dir attribute
     # 
     # @raise [Downloader::DownloadException] If a file could not be downloaded or written
-    def download_results
-      self.images_dir = ::FlickrPic::Downloader.get urls
+    def download
+      self.images_dir = ::FlickrPic::Downloader.execute urls
     end
 
     # 
     # Crops the downloaded images
     #
-    def crop_results
-      self.images = ::FlickrPic::ImageCropper.crop_images_in_dir images_dir, AppConfig[:sub_image_size], AppConfig[:sub_image_size]
+    def crop_images
+      self.images = ::FlickrPic::ImageCropper.execute images_dir, AppConfig[:sub_image_size], AppConfig[:sub_image_size]
     end
 
     # 
@@ -72,7 +72,7 @@ module FlickrPic
     # @raise [CreateFile::FileWriteError] If the file could not be created
     # 
     def create_file
-      ::FlickrPic::CreateFile.create filename, images
+      ::FlickrPic::CreateFile.execute filename, images
     end
   end
 end

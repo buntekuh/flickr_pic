@@ -13,7 +13,7 @@ module FlickrPic
       # @param width [Integer] The desired width
       # @param height [Integer] The desired height
       # 
-    def self.crop_images_in_dir directory, width, height
+    def self.execute directory, width, height
       Dir[File.join(directory, '*')].collect do |filename|
         crop MiniMagick::Image.new(filename), width, height
       end

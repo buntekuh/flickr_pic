@@ -35,7 +35,7 @@ module FlickrPic
     # @param images [Array of MiniMagick::Image] The Array of images that should be rendered on the final image
     # 
     # @return [MiniMagick::Image] The created image
-    def self.create filename, images
+    def self.execute filename, images
       
       file = self.new filename, images
 

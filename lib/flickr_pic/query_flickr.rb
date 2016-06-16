@@ -7,8 +7,8 @@ module FlickrPic
   # 
   # @author [buntekuh]
   # 
-  class FlickrApi
-    class FlickrApiException < StandardError; end
+  class QueryFlickr
+    class QueryFlickrException < StandardError; end
 
     # 
     # Returns a list of urls which link to the best found images on flickr to the given keywords
@@ -16,8 +16,8 @@ module FlickrPic
     # @param keywords [Array of Strings] Keywords to query Flickr for
     # 
     # @return [Array of URLs] An Array of Urls to Flickr images
-    # @raise [FlickrApiException] If connecting to Flickr fails
-    def self.query _keywords = []
+    # @raise [QueryFlickrException] If connecting to Flickr fails
+    def self.execute _keywords = []
       keywords = _keywords.clone
       urls = []
       # loop until we have at least AppConfig[:min_number_of_images] number of images and we have responded to every keyword
@@ -34,7 +34,7 @@ module FlickrPic
     # @param keyword [String] The keyword to query Flickr for
     # 
     # @return [String] A URI to an image or nil if none was found
-    # @raise [FlickrApiException] If connecting to Flickr fails
+    # @raise [QueryFlickrException] If connecting to Flickr fails
     def self.query_keyword keyword
       return nil if keyword.empty?
       img = nil
@@ -42,7 +42,7 @@ module FlickrPic
       begin
         img = flickr.photos.search(text: keyword, sort: 'interestingness-desc', media: :photos, per_page: 1).first
       rescue => e
-        fail FlickrApiException, e.message
+        fail QueryFlickrException, e.message
       end
       FlickRaw.url_q img unless img.nil?
     

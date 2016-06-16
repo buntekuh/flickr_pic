@@ -20,13 +20,13 @@ module FlickrPic
 
       @fp = FlickrPic.new 'filename.png', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
       
-      # stubbing FlickrApi.query as it is tested elsewhere
-      FlickrApi.stub(:query, @plasticUrls) do
-        @fp.query_flickr_api
+      # stubbing QueryFlickr.execute as it is tested elsewhere
+      QueryFlickr.stub(:execute, @plasticUrls) do
+        @fp.query_flickr
       end
 
-      @fp.download_results
-      @fp.crop_results
+      @fp.download
+      @fp.crop_images
     end
 
     def test_execute
@@ -35,16 +35,16 @@ module FlickrPic
       FileUtils.rm 'filename.png'
     end
 
-    def test_query_flickr_api
+    def test_query_flickr
       assert_equal 10,  @fp.urls.size
     end
 
-    def test_download_results
+    def test_download
       assert File.directory? @fp.images_dir
       assert_equal 10, Dir[File.join(@fp.images_dir, '*')].count
     end
 
-    def test_crop_results
+    def test_crop_images
       assert_equal 10, @fp.images.size
       assert_equal AppConfig[:sub_image_size], @fp.images.first[:width]
       assert_equal AppConfig[:sub_image_size], @fp.images.first[:height]

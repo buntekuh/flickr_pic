@@ -15,9 +15,9 @@ module FlickrPic
       end
     end
 
-    def test_crop_images_in_dir
+    def test_execute
       tmpdir do |dir|
-        images = ::FlickrPic::ImageCropper.crop_images_in_dir dir, AppConfig[:sub_image_size], AppConfig[:sub_image_size]
+        images = ::FlickrPic::ImageCropper.execute dir, AppConfig[:sub_image_size], AppConfig[:sub_image_size]
         assert_equal 2, images.size
         assert images.first.is_a? MiniMagick::Image
         assert_equal images.first[:width], AppConfig[:sub_image_size]
