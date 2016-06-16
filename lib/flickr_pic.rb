@@ -10,7 +10,7 @@ module FlickrPic
   # - queries the Flickr API for the top-rated image for each keyword
   # - downloads the results
   # - crops them rectangularly
-  # - assembles a collage grid from ten images and
+  # - assembles a collage grid from nine images and
   # - writes the result to a user-supplied filename
   # 
   # @author [buntekuh]
@@ -63,7 +63,7 @@ module FlickrPic
     # Crops the downloaded images
     #
     def crop_results
-      self.images = ::FlickrPic::ImageCropper.crop_images_in_dir images_dir, 300, 300
+      self.images = ::FlickrPic::ImageCropper.crop_images_in_dir images_dir, AppConfig[:sub_image_size], AppConfig[:sub_image_size]
     end
 
     # 

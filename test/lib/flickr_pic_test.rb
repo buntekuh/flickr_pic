@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'flickr_pic'
 require 'flickr_pic/image_cropper'
 require 'flickr_pic/create_file'
+require 'config'
 
 module FlickrPic
   class FlickrPicTest < Minitest::Test
@@ -45,8 +46,8 @@ module FlickrPic
 
     def test_crop_results
       assert_equal 10, @fp.images.size
-      assert_equal 300, @fp.images.first[:width]
-      assert_equal 300, @fp.images.first[:height]
+      assert_equal AppConfig[:sub_image_size], @fp.images.first[:width]
+      assert_equal AppConfig[:sub_image_size], @fp.images.first[:height]
     end
   end
 end

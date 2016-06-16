@@ -21,12 +21,12 @@ module FlickrPic
       
       # force png regardless of file type defined
       # TODO allow different file type
-      self.filename << '.png' unless filename.end_with? 'png'
+      self.filename = "#{filename}.png" unless filename.end_with? '.png'
       file_writable?
 
-      `convert -size #{@items_per_side * single_image_width}x#{@items_per_side * single_image_height} canvas:transparent #{filename}`
+      `convert -size #{@items_per_side * single_image_width}x#{@items_per_side * single_image_height} canvas:transparent #{self.filename}`
       
-      self.image = MiniMagick::Image.new filename
+      self.image = MiniMagick::Image.new self.filename
     end
     
     # 

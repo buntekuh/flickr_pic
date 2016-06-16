@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'flickr_pic'
+require 'config'
 
 module FlickrPic
   class FlickrApiTest < Minitest::Test
@@ -7,13 +8,13 @@ module FlickrPic
 
     def test_query
       query = ::FlickrPic::FlickrApi.query(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
-      assert_equal 10, query.size
+      assert_equal AppConfig[:min_number_of_images], query.size
       for url in query
         assert_match(UrlRegExp, url)
       end
       assert_equal 11, ::FlickrPic::FlickrApi.query(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'January', 'February', 'March', 'April']).size
 
-      assert_equal 10, ::FlickrPic::FlickrApi.query(['sf7w9eqjkd', 'asd708asd', 'asdf8', 'vbn7346h', 'xcvo8', 'fdsgvbc3', 'piewu434']).size
+      assert_equal AppConfig[:min_number_of_images], ::FlickrPic::FlickrApi.query(['sf7w9eqjkd', 'asd708asd', 'asdf8', 'vbn7346h', 'xcvo8', 'fdsgvbc3', 'piewu434']).size
 
     end
 

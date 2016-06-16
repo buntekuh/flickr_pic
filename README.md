@@ -6,7 +6,7 @@ A Commandline Application that:
 -   queries the Flickr API for the top-rated image for each keyword
 -   downloads the results
 -   crops them rectangularly
--   assembles a collage grid from at least ten images
+-   assembles a collage grid from at least nine images
 -   writes the result to a user-supplied filename
 
 FlickrPic queries the Flickr Api and creates a collage that reflects the given keywords.

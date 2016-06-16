@@ -12,7 +12,7 @@ module FlickrPic
 
     # 
     # Returns a list of urls which link to the best found images on flickr to the given keywords
-    # It returns at least 10 images, regardless of how many keywords were passed
+    # It returns at least 9 images, regardless of how many keywords were passed
     # @param keywords [Array of Strings] Keywords to query Flickr for
     # 
     # @return [Array of URLs] An Array of Urls to Flickr images
@@ -20,8 +20,8 @@ module FlickrPic
     def self.query _keywords = []
       keywords = _keywords.clone
       urls = []
-      # loop until we have at least 10 images and we have responded to every keyword
-      while urls.size < 10 || keywords.size > 0
+      # loop until we have at least AppConfig[:min_number_of_images] number of images and we have responded to every keyword
+      while urls.size < AppConfig[:min_number_of_images] || keywords.size > 0
         word = keywords.shift || pick_random_word
         url = query_keyword word
         urls << url unless url.nil?
