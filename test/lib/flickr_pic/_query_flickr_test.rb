@@ -16,6 +16,13 @@ module FlickrPic
 
       assert_equal AppConfig[:min_number_of_images], ::FlickrPic::QueryFlickr.execute(['sf7w9eqjkd', 'asd708asd', 'asdf8', 'vbn7346h', 'xcvo8', 'fdsgvbc3', 'piewu434']).size
 
+      urls = ::FlickrPic::QueryFlickr.execute(['equal', 'equal', 'equal', 'equal', 'equal'])
+      assert_equal AppConfig[:min_number_of_images], urls.size
+      found_urls = []
+      for url in urls
+        refute found_urls.include? url
+        found_urls << url
+      end
     end
 
     def test_query_keyword
@@ -26,7 +33,7 @@ module FlickrPic
     end
 
     def test_pick_random_word
-      assert_match /[a-z]+/, ::FlickrPic::QueryFlickr.pick_random_word
+      assert_match /[a-z]+/, ::FlickrPic::QueryFlickr.pick_random_word([])
     end
 
     def self.remote_file_is_an_image?(url)
