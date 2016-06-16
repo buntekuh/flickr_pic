@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.author = 'Bernd Eickhoff'
   s.email =  'beickhoff01@gmail.com'
   s.license = 'LGPL'
-  s.version = 0.1
+  s.version = 1.0
   s.files = Dir['lib/**/*'] + Dir['config/*.rb'] + %w{flickr_pic.rb LICENCE README.md rakefile Gemfile Gemfile.lock}
   s.require_paths = ['lib', 'lib/flickr_pic', 'config']
   s.add_runtime_dependency 'flickraw'
