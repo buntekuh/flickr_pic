@@ -12,7 +12,6 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib', 'lib/flickr_pic', 'config']
   s.add_runtime_dependency 'flickraw'
   s.add_runtime_dependency 'mini_magick'
-  s.add_runtime_dependency 'chunky_png'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'minitest'
 end

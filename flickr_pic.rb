@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
 
-# we need at least 2 parameters
-# if we get less print usage info and exit
-if ARGV.size < 2
+# we need at least the filename parameter
+# otherwise print usage info and exit
+if ARGV.size < 1
   puts "flickr_pic queries the Flickr Api and creates a collage that reflects the given keywords"
   puts "usage: flick_pic.rb filename list of keywords"
   exit 1

@@ -1,6 +1,11 @@
 require 'mini_magick'
 
 module FlickrPic
+  # 
+  # Crops the downloaded images
+  # 
+  # @author [buntekuh]
+  # 
   class ImageCropper
       # 
       # Crops all presumed image files in a directory to given dimensions
@@ -8,7 +13,6 @@ module FlickrPic
       # @param width [Integer] The desired width
       # @param height [Integer] The desired height
       # 
-      # @return [type] [description]
     def self.crop_images_in_dir directory, width, height
       Dir[File.join(directory, '*')].collect do |filename|
         crop MiniMagick::Image.new(filename), width, height

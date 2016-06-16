@@ -2,6 +2,11 @@ require 'flickraw'
 require 'config'
 
 module FlickrPic
+  # 
+  # Queries Flickr against keywords
+  # 
+  # @author [buntekuh]
+  # 
   class FlickrApi
     class FlickrApiException < StandardError; end
 

@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'flickr_pic'
 require 'flickr_pic/image_cropper'
+require 'flickr_pic/create_file'
 
 module FlickrPic
   class FlickrPicTest < Minitest::Test
@@ -28,8 +29,9 @@ module FlickrPic
     end
 
     def test_execute
-      # FlickrPic.execute 'filename.png', ['a', 'b', 'c']
-      # assert File.exist? 'filename.png'
+      FlickrPic.execute 'filename.png', ['a', 'b', 'c']
+      assert File.exist? 'filename.png'
+      FileUtils.rm 'filename.png'
     end
 
     def test_query_flickr_api

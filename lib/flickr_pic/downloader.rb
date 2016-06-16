@@ -1,7 +1,11 @@
 module FlickrPic
   class Downloader
+    # 
+    # Downloads the selected images
+    # 
+    # @author [buntekuh]
+    # 
     class DownloadException < StandardError; end
-    
     
     # 
     # Downloads files from a list of urls
